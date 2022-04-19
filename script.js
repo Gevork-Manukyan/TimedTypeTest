@@ -34,19 +34,19 @@ function loadTestText() {
 loadTestText()
 
 
-// Add leading zero to numbers 9 or below (purely for aesthetics):
-
-
 // Match the text entered with the provided text on the page:
+function checkKeyOrStartGame() {
+    if (timerStarted === false){
+        startTimer()
+    }
 
+    
+}
 
 // Start the timer:
 function startTimer() {
-    if (timerStarted === false){
-
-        timerInterval = setInterval(incrementTime, 10)
-        timerStarted = true
-    }
+    timerInterval = setInterval(incrementTime, 10)
+    timerStarted = true
 }
 
 // Updates timer value
@@ -70,6 +70,7 @@ function updateHTMLTimer() {
 
     let miliseconds = timeMath / 10
 
+    // Add leading zero to numbers 9 or below (purely for aesthetics):
     if (minutes <= 9)
         minutes = `0${minutes}`
     
@@ -78,6 +79,7 @@ function updateHTMLTimer() {
 
     if (miliseconds <= 9)
         miliseconds = `0${miliseconds}`
+
 
     theTimer.innerHTML = `${minutes}:${seconds}:${miliseconds}`
 }
@@ -102,4 +104,4 @@ function reset() {
 
 // Event listeners for keyboard input and the reset button:
 resetButton.addEventListener("click", reset)
-testArea.addEventListener("keypress", startTimer)
+testArea.addEventListener("keypress", checkKeyOrStartGame)
