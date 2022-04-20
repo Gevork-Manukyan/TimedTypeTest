@@ -6,6 +6,8 @@ const theTimer = document.querySelector(".timer");
 
 // Global Variables
 const testTexts = []
+
+// Three different test texts that are displayed randomly
 testTexts.push("To learn to type quickly, practice often and adopt the proper technique. Fix your posture, have adequate lighting, position your hands correctly over the keyboard," 
  + " look at the screen and use all your fingers to hit the keys. At first, concentrate on accuracy over speed. This will help you develop muscle memory and create automatic reflexes." 
  + " Keep practicing and gradually pick up the pace. You'll see results after just a few weeks!")
@@ -14,9 +16,14 @@ testTexts.push("To learn to type quickly, practice often and adopt the proper te
 
  testTexts.push("I observed for as long as I could. Their leaders have been assassinated. Communities flooded with drugs and weapons. They are overly policed and incarcerated. All over the planet, our people suffer because they don't have the tools to fight back. With vibranium weapons they can overthrow all countries, and Wakanda can rule them all, the right way!")
 
+ testTexts.push("Hello World!")
+
 let timerInterval
 let timerValue = 0
 let timerStarted = false
+let currentTestTextTokens
+let playerPosition = 0
+let typedString = ''
 
 
 
@@ -29,24 +36,53 @@ function randomNumber (min, max) {
 function loadTestText() {
     const random = randomNumber(0, testTexts.length)
     originText.innerHTML = testTexts[random]
+    currentTestTextTokens = testTexts[random].split("")
 }
 
 loadTestText()
 
 
 // Match the text entered with the provided text on the page:
-function checkKeyOrStartGame() {
+function checkKeyOrStartGame(event) {
+    event.preventDefault()
+    
     if (timerStarted === false){
         startTimer()
     }
-
     
+    if (event.key === currentTestTextTokens[playerPosition]) {
+        playerPosition++
+        typedString = typedString + event.key
+    }
+
+    testArea.value = typedString
+    
+    if (playerPosition === currentTestTextTokens.length) {
+        stopTimer()
+    }
+}
+
+function doBackspace(event) {
+
+    if (timerStarted === false){
+        return;
+    }
+
+    if (event.key === 'Backspace') {
+        playerPosition--
+        typedString = typedString.substring(0, typedString.length - 1)
+    }
 }
 
 // Start the timer:
 function startTimer() {
     timerInterval = setInterval(incrementTime, 10)
     timerStarted = true
+}
+
+function stopTimer() {
+    clearInterval(timerInterval)
+    timerStarted = false
 }
 
 // Updates timer value
@@ -96,6 +132,8 @@ function reset() {
     timerValue = 0
     timerInterval = null
     timerStarted = false
+    typedString = ""
+    playerPosition = 0
     clearHTMLText()
     updateHTMLTimer()
     loadTestText()
@@ -105,3 +143,4 @@ function reset() {
 // Event listeners for keyboard input and the reset button:
 resetButton.addEventListener("click", reset)
 testArea.addEventListener("keypress", checkKeyOrStartGame)
+testArea.addEventListener("keydown", doBackspace)
