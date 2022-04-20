@@ -163,6 +163,10 @@ body {
     padding: 10px;
 }
 
+.test-wrapper textarea.success {
+    background-color: lightgreen;
+}
+
 .meta {
     margin-top: 1em;
     display: flex;
@@ -191,12 +195,18 @@ body {
 
 .high-scores-wrapper {
     border: #429890 solid 10px;
+    border-radius: 10px;
     margin: 0 auto;
     max-width: 550px;
+    padding-bottom: 25px;
 }
 
 h2 {
     text-align: center;
     color: #0D1B2E;
     text-decoration: underline;
+}
+
+.score {
+    text-align: center;
 }

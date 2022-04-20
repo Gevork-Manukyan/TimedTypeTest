@@ -3,6 +3,11 @@ const testArea = document.querySelector("#test-area");
 const originText = document.querySelector("#origin-text p");
 const resetButton = document.querySelector("#reset");
 const theTimer = document.querySelector(".timer");
+const scores = {
+    score1: document.querySelector("#score1"),
+    score2: document.querySelector("#score2"),
+    score3: document.querySelector("#score3"),
+}
 
 // Global Variables
 const testTexts = []
@@ -17,6 +22,8 @@ testTexts.push("To learn to type quickly, practice often and adopt the proper te
  testTexts.push("I observed for as long as I could. Their leaders have been assassinated. Communities flooded with drugs and weapons. They are overly policed and incarcerated. All over the planet, our people suffer because they don't have the tools to fight back. With vibranium weapons they can overthrow all countries, and Wakanda can rule them all, the right way!")
 
  testTexts.push("Hello World!")
+
+const leaderboard = [Number.MAX_VALUE, Number.MAX_VALUE, Number.MAX_VALUE]
 
 let timerInterval
 let timerValue = 0
@@ -34,7 +41,8 @@ function randomNumber (min, max) {
 
  // Load test text onto page
 function loadTestText() {
-    const random = randomNumber(0, testTexts.length)
+    // const random = randomNumber(0, testTexts.length)
+    const random = 3
     originText.innerHTML = testTexts[random]
     currentTestTextTokens = testTexts[random].split("")
 }
@@ -82,7 +90,23 @@ function startTimer() {
 
 function stopTimer() {
     clearInterval(timerInterval)
-    timerStarted = false
+    
+    if (timerStarted === true) {
+        if (timerValue < leaderboard[0])
+            leaderboard.splice(0, 0, timerValue)
+        
+        else if (timerValue < leaderboard[1])
+            leaderboard.splice(1, 0, timerValue)
+        
+        else if (timerValue < leaderboard[2])
+            leaderboard.splice(2, 0, timerValue)
+        
+        testArea.disabled = true
+        testArea.classList.add("success")
+        timerStarted = false
+        updateLeaderboardHtml()
+    }
+    
 }
 
 // Updates timer value
@@ -96,7 +120,20 @@ function incrementTime() {
 // 1000   = 1 second
 // 100    = 1 hundreth second
 function updateHTMLTimer() {
-    let timeMath = timerValue
+    theTimer.innerHTML = formatTime(timerValue)
+}
+
+// Updates the leaderboard html
+function updateLeaderboardHtml() {
+
+    leaderboard.forEach((element, index) => {
+        if (element < Number.MAX_VALUE)
+            scores[`score${index + 1}`].innerHTML = formatTime(element)
+    })
+    
+}
+
+function formatTime(timeMath) {
 
     let minutes = Math.floor(timeMath / 60000)
     timeMath = timeMath - (minutes * 60000)
@@ -106,7 +143,6 @@ function updateHTMLTimer() {
 
     let miliseconds = timeMath / 10
 
-    // Add leading zero to numbers 9 or below (purely for aesthetics):
     if (minutes <= 9)
         minutes = `0${minutes}`
     
@@ -117,14 +153,13 @@ function updateHTMLTimer() {
         miliseconds = `0${miliseconds}`
 
 
-    theTimer.innerHTML = `${minutes}:${seconds}:${miliseconds}`
+    return `${minutes}:${seconds}:${miliseconds}`;
 }
 
 // Clears the textArea
 function clearHTMLText() {
     testArea.value = ''
 }
-
 
 // Reset everything:
 function reset() {
@@ -134,6 +169,8 @@ function reset() {
     timerStarted = false
     typedString = ""
     playerPosition = 0
+    testArea.disabled = false
+    testArea.classList.remove("success")
     clearHTMLText()
     updateHTMLTimer()
     loadTestText()
