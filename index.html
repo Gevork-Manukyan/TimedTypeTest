@@ -20,21 +20,42 @@
         </article><!-- .intro -->
         <section class="test-area">
             <div id="origin-text">
-                <p>The text to test.</p>
+                <p></p>
             </div><!-- #origin-text -->
 
             <div class="test-wrapper">
-                <textarea id="test-area" name="textarea" rows="6" placeholder="The clock starts when you start typing."></textarea>
+                <textarea id="test-area" class="" name="textarea" rows="6" placeholder="The clock starts when you start typing."></textarea>
             </div><!-- .test-wrapper -->
 
             <div class="meta">
                 <section id="clock">
                     <div class="timer">00:00:00</div>
                 </section>
+                <section id="wpm-and-mistakes">
+                    <div class="words-per-minute"><span id="wpm-result"></span> wpm</div>
+                    <div class="mistake-counter"><span id="numberOfMistakes"></span> mistakes</div>
+                </section>
 
                 <button id="reset">Start over</button>
             </div><!-- .meta -->
         </section><!-- .test-area -->
+
+        <section id="high-scores">
+            <div class="high-scores-wrapper">
+                <h2>Leaderboard</h2>
+                <div id="scores">
+                    <div class="score">
+                        1. <span id="score1"></span>
+                    </div>
+                    <div class="score">
+                        2. <span id="score2"></span>
+                    </div>
+                    <div class="score">
+                        3. <span id="score3"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
 </body>

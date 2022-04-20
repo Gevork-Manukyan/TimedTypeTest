@@ -151,6 +151,7 @@ body {
 #origin-text p {
     margin: 0;
     padding-bottom: 1em;
+    user-select: none;
 }
 
 .test-wrapper {
@@ -159,6 +160,11 @@ body {
 
 .test-wrapper textarea {
     flex: 1;
+    padding: 10px;
+}
+
+.test-wrapper textarea.success {
+    background-color: lightgreen;
 }
 
 .meta {
@@ -166,10 +172,16 @@ body {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    align-items: center;
 }
 
 .timer {
     font-size: 3em;
+    font-weight: bold;
+}
+
+#wpm-and-mistakes div {
+    font-size: 1.5em;
     font-weight: bold;
 }
 
@@ -185,4 +197,22 @@ body {
 #reset:hover {
     color: white;
     background-color: #E95D0F;
+}
+
+.high-scores-wrapper {
+    border: #429890 solid 10px;
+    border-radius: 10px;
+    margin: 0 auto;
+    max-width: 550px;
+    padding-bottom: 25px;
+}
+
+h2 {
+    text-align: center;
+    color: #0D1B2E;
+    text-decoration: underline;
+}
+
+.score {
+    text-align: center;
 }
