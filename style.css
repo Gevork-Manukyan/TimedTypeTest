@@ -172,10 +172,16 @@ body {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    align-items: center;
 }
 
 .timer {
     font-size: 3em;
+    font-weight: bold;
+}
+
+.words-per-minute {
+    font-size: 1.5em;
     font-weight: bold;
 }
 

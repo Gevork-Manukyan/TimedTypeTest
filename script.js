@@ -3,6 +3,7 @@ const testArea = document.querySelector("#test-area");
 const originText = document.querySelector("#origin-text p");
 const resetButton = document.querySelector("#reset");
 const theTimer = document.querySelector(".timer");
+const wpmResult = document.querySelector("#wpm-result")
 const scores = {
     score1: document.querySelector("#score1"),
     score2: document.querySelector("#score2"),
@@ -41,8 +42,8 @@ function randomNumber (min, max) {
 
  // Load test text onto page
 function loadTestText() {
-    // const random = randomNumber(0, testTexts.length)
-    const random = 3
+    const random = randomNumber(0, testTexts.length)
+    // const random = 3
     originText.innerHTML = testTexts[random]
     currentTestTextTokens = testTexts[random].split("")
 }
@@ -101,6 +102,8 @@ function stopTimer() {
         else if (timerValue < leaderboard[2])
             leaderboard.splice(2, 0, timerValue)
         
+
+        wpmResult.innerHTML = Math.floor(currentTestTextTokens.length / (timerValue / 60000)) / 10
         testArea.disabled = true
         testArea.classList.add("success")
         timerStarted = false
