@@ -4,6 +4,7 @@ const originText = document.querySelector("#origin-text p");
 const resetButton = document.querySelector("#reset");
 const theTimer = document.querySelector(".timer");
 const wpmResult = document.querySelector("#wpm-result")
+const mistakes = document.querySelector("#numberOfMistakes")
 const scores = {
     score1: document.querySelector("#score1"),
     score2: document.querySelector("#score2"),
@@ -32,6 +33,7 @@ let timerStarted = false
 let currentTestTextTokens
 let playerPosition = 0
 let typedString = ''
+let mistakeCounter = 0
 
 
 
@@ -62,6 +64,8 @@ function checkKeyOrStartGame(event) {
     if (event.key === currentTestTextTokens[playerPosition]) {
         playerPosition++
         typedString = typedString + event.key
+    } else {
+        mistakeCounter++
     }
 
     testArea.value = typedString
@@ -103,6 +107,7 @@ function stopTimer() {
             leaderboard.splice(2, 0, timerValue)
         
 
+        mistakes.innerHTML = mistakeCounter
         wpmResult.innerHTML = Math.floor(currentTestTextTokens.length / (timerValue / 60000)) / 10
         testArea.disabled = true
         testArea.classList.add("success")
@@ -172,6 +177,7 @@ function reset() {
     timerStarted = false
     typedString = ""
     playerPosition = 0
+    mistakeCounter = 0
     testArea.disabled = false
     testArea.classList.remove("success")
     clearHTMLText()

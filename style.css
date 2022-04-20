@@ -180,7 +180,7 @@ body {
     font-weight: bold;
 }
 
-.words-per-minute {
+#wpm-and-mistakes div {
     font-size: 1.5em;
     font-weight: bold;
 }
