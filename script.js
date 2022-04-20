@@ -23,8 +23,6 @@ testTexts.push("To learn to type quickly, practice often and adopt the proper te
 
  testTexts.push("I observed for as long as I could. Their leaders have been assassinated. Communities flooded with drugs and weapons. They are overly policed and incarcerated. All over the planet, our people suffer because they don't have the tools to fight back. With vibranium weapons they can overthrow all countries, and Wakanda can rule them all, the right way!")
 
- testTexts.push("Hello World!")
-
 const leaderboard = [Number.MAX_VALUE, Number.MAX_VALUE, Number.MAX_VALUE]
 
 let timerInterval
@@ -45,7 +43,6 @@ function randomNumber (min, max) {
  // Load test text onto page
 function loadTestText() {
     const random = randomNumber(0, testTexts.length)
-    // const random = 3
     originText.innerHTML = testTexts[random]
     currentTestTextTokens = testTexts[random].split("")
 }
@@ -75,6 +72,7 @@ function checkKeyOrStartGame(event) {
     }
 }
 
+// evenListenter for backspace
 function doBackspace(event) {
 
     if (timerStarted === false){
@@ -107,9 +105,13 @@ function stopTimer() {
             leaderboard.splice(2, 0, timerValue)
         
 
+        // Display number of mistakes
         mistakes.innerHTML = mistakeCounter
+        // Calculate wpm
         wpmResult.innerHTML = Math.floor(currentTestTextTokens.length / (timerValue / 60000)) / 10
+        // Disable text area
         testArea.disabled = true
+        // Change background color of textarea
         testArea.classList.add("success")
         timerStarted = false
         updateLeaderboardHtml()
@@ -141,6 +143,7 @@ function updateLeaderboardHtml() {
     
 }
 
+// Formats the time appropriately
 function formatTime(timeMath) {
 
     let minutes = Math.floor(timeMath / 60000)
@@ -169,7 +172,7 @@ function clearHTMLText() {
     testArea.value = ''
 }
 
-// Reset everything:
+// Reset everything
 function reset() {
     clearInterval(timerInterval)
     timerValue = 0
