@@ -24,8 +24,13 @@ testTexts.push("To learn to type quickly, practice often and adopt the proper te
  testTexts.push("I observed for as long as I could. Their leaders have been assassinated. Communities flooded with drugs and weapons. They are overly policed and incarcerated. All over the planet, our people suffer because they don't have the tools to fight back. With vibranium weapons they can overthrow all countries, and Wakanda can rule them all, the right way!")
 
  testTexts.push("Hello")
+
  // Keeps track of top 3 times
-const leaderboard = [Number.MAX_VALUE, Number.MAX_VALUE, Number.MAX_VALUE]
+ let leaderboard
+if (window.localStorage.getItem("leaderboard") !== undefined && window.localStorage.getItem("leaderboard") !== null)
+    leaderboard = JSON.parse(window.localStorage.getItem("leaderboard"))
+else 
+    leaderboard = []
 
 let timerInterval
 let timerValue = 0
@@ -50,7 +55,7 @@ function loadTestText() {
 }
 
 loadTestText()
-
+updateLeaderboardHtml()
 
 // Match the text entered with the provided text on the page:
 function checkKeyOrStartGame(event) {
@@ -101,15 +106,17 @@ function stopTimer() {
     clearInterval(timerInterval)
     
     if (timerStarted === true) {
-        if (timerValue < leaderboard[0])
+        if (timerValue < leaderboard[0] || leaderboard[0] === undefined)
             leaderboard.splice(0, 0, timerValue)
         
-        else if (timerValue < leaderboard[1])
+        else if (timerValue < leaderboard[1] || leaderboard[1] === undefined)
             leaderboard.splice(1, 0, timerValue)
         
-        else if (timerValue < leaderboard[2])
+        else if (timerValue < leaderboard[2] || leaderboard[2] === undefined)
             leaderboard.splice(2, 0, timerValue)
         
+        if (leaderboard.length > 3)
+            leaderboard.splice(3)
 
         // Display number of mistakes
         mistakes.innerHTML = mistakeCounter
@@ -145,9 +152,14 @@ function updateHTMLTimer() {
 function updateLeaderboardHtml() {
 
     leaderboard.forEach((element, index) => {
-        if (element < Number.MAX_VALUE)
+        console.log(element, index)
+        if (element !== undefined)
             scores[`score${index + 1}`].innerHTML = formatTime(element)
     })
+
+    console.log(leaderboard)
+    // Save leaderboard in local storage
+    window.localStorage.setItem("leaderboard", JSON.stringify(leaderboard))
     
 }
 
