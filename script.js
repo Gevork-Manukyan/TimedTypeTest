@@ -23,8 +23,6 @@ testTexts.push("To learn to type quickly, practice often and adopt the proper te
 
  testTexts.push("I observed for as long as I could. Their leaders have been assassinated. Communities flooded with drugs and weapons. They are overly policed and incarcerated. All over the planet, our people suffer because they don't have the tools to fight back. With vibranium weapons they can overthrow all countries, and Wakanda can rule them all, the right way!")
 
- testTexts.push("Hello")
-
  // Keeps track of top 3 times
  let leaderboard
 if (window.localStorage.getItem("leaderboard") !== undefined && window.localStorage.getItem("leaderboard") !== null)
