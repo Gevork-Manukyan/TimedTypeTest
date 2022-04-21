@@ -167,6 +167,14 @@ body {
     background-color: lightgreen;
 }
 
+.test-wrapper textarea.mistake {
+    background-color: lightcoral;
+}
+
+.test-wrapper textarea.correct {
+    background-color: lightskyblue;
+}
+
 .meta {
     margin-top: 1em;
     display: flex;

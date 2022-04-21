@@ -23,6 +23,7 @@ testTexts.push("To learn to type quickly, practice often and adopt the proper te
 
  testTexts.push("I observed for as long as I could. Their leaders have been assassinated. Communities flooded with drugs and weapons. They are overly policed and incarcerated. All over the planet, our people suffer because they don't have the tools to fight back. With vibranium weapons they can overthrow all countries, and Wakanda can rule them all, the right way!")
 
+ testTexts.push("Hello")
  // Keeps track of top 3 times
 const leaderboard = [Number.MAX_VALUE, Number.MAX_VALUE, Number.MAX_VALUE]
 
@@ -62,8 +63,12 @@ function checkKeyOrStartGame(event) {
     if (event.key === currentTestTextTokens[playerPosition]) {
         playerPosition++
         typedString = typedString + event.key
+        testArea.classList.add("correct")
+        testArea.classList.remove("mistake")
     } else {
         mistakeCounter++
+        testArea.classList.add("mistake")
+        testArea.classList.remove("correct")
     }
 
     testArea.value = typedString
@@ -113,6 +118,8 @@ function stopTimer() {
         // Disable text area
         testArea.disabled = true
         // Change background color of textarea
+        testArea.classList.remove("correct")
+        testArea.classList.remove("mistake")
         testArea.classList.add("success")
         timerStarted = false
         updateLeaderboardHtml()
@@ -184,6 +191,8 @@ function reset() {
     mistakeCounter = 0
     testArea.disabled = false
     testArea.classList.remove("success")
+    testArea.classList.remove("mistake")
+    testArea.classList.remove("correct")
     clearHTMLText()
     updateHTMLTimer()
     loadTestText()
